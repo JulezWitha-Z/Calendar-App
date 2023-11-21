@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Calendar for {{ month }}/{{ year }}</h1>
+        <h1>{{ wordMonth }} {{ year }}</h1>
         <table border="1">
             <thead>
                 <td>Sun</td>
@@ -37,7 +37,7 @@
                     {% for cell in row %}
                         <td>
                             {% if cell != ' ' %}
-                                <a href="{{ url_for('display_events', year=year, month=month, day=cell) }}">{{ cell }}</a>
+                                <a href="{{ url_for('display_events', year=year, month = month, wordMonth=wordMonth, day=cell) }}">{{ cell }}</a>
                             {% endif %}
                         </td>
                     {% endfor %}
