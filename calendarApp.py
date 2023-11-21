@@ -74,6 +74,7 @@ def update_month(year, month):
 
     return render_template('calendar.html', year=year, month=month, wordMonth = wordMonth, calendar_data=calendar_data)
 
+<<<<<<< HEAD
 '''#Display current week
 @app.route('/week')
 def week():
@@ -93,6 +94,8 @@ def week():
     return render_template('week.html', year=year, month=month, calendar_data=calendar_data)'''
 
 
+=======
+>>>>>>> bd16d3d495d79a2f70424bcaa94863fb72d18dd6
 
 @app.route('/tasksAndEvents/<int:year>/<int:month>/<int:day>')
 def display_events(year, month, day):
