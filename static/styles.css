@@ -1,7 +1,20 @@
 /* static/styles.css */
 
 body {
+    color: rgb(255, 255, 255);
     font-family: Arial, sans-serif;
+    background-color:rgb(0, 0, 0);
+}
+
+.button {
+    display: inline-block;
+    padding: 0.5px 4px;
+    text-decoration: none;
+    background-color: rgb(220, 222, 223); /* Example background color */
+    color: #070707; /* Example text color */
+    border-radius: 2px;
+    border: 1px solid #000000;
+    margin-right: 10px; /* Optional: Add some spacing between buttons */
 }
 
 .container {
@@ -30,5 +43,5 @@ td {
 
 /* Optional: Highlight cells with background color */
 td:hover {
-    background-color: #f5f5f5;
+    background-color: #999999;
 }
