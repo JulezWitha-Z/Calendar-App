@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Calendar App</title>
+     <style>
+        body {
+            text-align: center; /* Center align the content */
+        }
+
+        form {
+            display: inline-block; /* Make the form inline */
+            margin-top: 20px; /* Add some top margin for spacing */
+        }
+
+        button {
+            margin: 0 10px; /* Add margin to the buttons for spacing */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calendar for {{ month }}/{{ year }}</h1>
+        <table border="1">
+            <thead>
+                <td>Sun</td>
+                <td>Mon</td>
+                <td>Tue</td>
+                <td>Wed</td>
+                <td>Thu</td>
+                <td>Fri</td>
+                <td>Sat</td>
+            </thead>
+        <tbody>
+            {% for row in calendar_data %}
+                <tr>
+                    {% for cell in row %}
+                        <td>
+                            {% if cell != ' ' %}
+                                <a href="{{ url_for('display_events', year=year, month=month, day=cell) }}">{{ cell }}</a>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+
+    <form method="post" action="{{ url_for('add_event')}}">
+        <button type="submit" class = "button">Add Event or Task</button>
+    </form>
+
+    <!-- Form for changing the month -->
+    <form method="post" action="{{ url_for('update_month', year=year, month=month) }}">
+        <button type="submit" name="direction" value="prev">Previous Month</button>
+        <button type="submit" name="direction" value="next">Next Month</button>
+    </form>
+</body>
+</html>

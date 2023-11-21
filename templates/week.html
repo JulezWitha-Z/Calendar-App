@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_Week.css') }}">
+    <title>Calendar App</title>
+     <style>
+        body {
+            text-align: center; /* Center align the content */
+        }
+
+        form {
+            display: inline-block; /* Make the form inline */
+            margin-top: 20px; /* Add some top margin for spacing */
+        }
+
+        button {
+            margin: 0 10px; /* Add margin to the buttons for spacing */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calendar for {{ month }}/{{ year }}</h1>
+        <table border="1">
+            <thead>
+                <td>Sun</td>
+                <td>Mon</td>
+                <td>Tue</td>
+                <td>Wed</td>
+                <td>Thu</td>
+                <td>Fri</td>
+                <td>Sat</td>
+            </thead>
+
+            {% for row in calendar_data %}
+                <td>
+                    {{ row }}
+                </td>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Form for changing the month -->
+    <form method="post" action="{{ url_for('week', year=year, month=month) }}">
+        <button type="submit" name="direction" value="prev">Previous Week</button>
+        <button type="submit" name="direction" value="next">Next Week</button>
+    </form>
+</body>
+</html>

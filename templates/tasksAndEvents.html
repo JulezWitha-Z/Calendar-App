@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <title>Events and Tasks</title>
+    </head>
+
+    <!-- -->
+    <style>
+        body {
+            text-align: center; /* Center align the content */
+        }
+
+        form {
+            display: inline-block; /* Make the form inline */
+            margin-top: 20px; /* Add some top margin for spacing */
+        }
+
+        button {
+            margin: 0 10px; /* Add margin to the buttons for spacing */
+        }
+    </style>
+
+    <body>
+        <div class="container">
+            <h1>Day/Month/Year</h1>
+                <ul id = "taskList">
+                    {% for event in eventList %}
+                    <li class = "taskList" >
+                        {% if event[3] == 1%}
+                        <input type = "checkbox" {% if event[4] == 1%} checked {% endif %} disabled>
+                        {% endif %}
+                        <span>{{event[1]}} </span> - {{event[2]}}
+                    </li>
+                    {% endfor %}
+                </ul>
+        </div>
+    </body>
+</html>

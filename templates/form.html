@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <title> Add Event or Task</title>
+    </head>
+
+    <body>
+        <form action = "/add_event" method = "post">
+            <label for = "event_name"> Event/Task: </label>
+            <input type = "text" name = "event_name" required>
+
+            <label for = "event_date"> Date: </label>
+            <input type = "date" name = "event_date" required>
+
+            <label for = "isTask"> Task: </label>
+            <input type = "checkbox" name = "isTask">
+        
+            <button type ="submit" class = "button">Add</button>
+            <a href="{{ url_for('generate_Calendar') }}" class = "button">Back to Calendar</a>
+        </form>
+        
+
+    </body>
+</html>
