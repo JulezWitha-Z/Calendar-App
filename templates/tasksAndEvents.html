@@ -23,17 +23,22 @@
 
     <body>
         <div class="container">
-            <h1>Day/Month/Year</h1>
+            <h1>{{ wordMonth }} / {{ day }} / {{ year }}</h1>
                 <ul id = "taskList">
                     {% for event in eventList %}
                     <li class = "taskList" >
                         {% if event[3] == 1%}
                         <input type = "checkbox" {% if event[4] == 1%} checked {% endif %} disabled>
                         {% endif %}
-                        <span>{{event[1]}} </span> - {{event[2]}}
+                        <span>{{event[1]}} </span>
                     </li>
                     {% endfor %}
                 </ul>
         </div>
+        <form method="post" action="{{ url_for('update_month', year=year, month=month) }}">
+            <button type="submit" name="direction" value="prev">Previous Day</button>
+            <button type="submit" name="direction" value="next">Next Day</button>
+        </form>
+        <a href="{{ url_for('generate_Calendar') }}" class = "button">Back to Calendar</a>
     </body>
 </html>
