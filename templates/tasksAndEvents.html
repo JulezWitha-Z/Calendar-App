@@ -28,7 +28,7 @@
                     {% for event in eventList %}
                     <li class = "taskList" >
                         {% if event[3] == 1%}
-                        <input type = "checkbox" {% if event[4] == 1%} checked {% endif %} disabled>
+                        <input type = "checkbox" {% if event[4] == 1 %}checked {% endif %}>
                         {% endif %}
                         <span>{{event[1]}} </span>
                     </li>
