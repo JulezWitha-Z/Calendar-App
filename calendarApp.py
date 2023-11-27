@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import calendar
-from datetime import datetime, timedelta
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -43,6 +43,9 @@ def generate_Calendar():
 
     return render_template('calendar.html', year=year, month = month, wordMonth=wordMonth, calendar_data=calendar_data)
 
+
+
+
 @app.route('/update_month/<int:year>/<int:month>', methods=['GET', 'POST'])
 def update_month(year, month):
     # Set Sunday as the first day of the week
@@ -53,16 +56,21 @@ def update_month(year, month):
 
         if direction == 'prev':
             # Decrease month
-            # Create a new_date object with the current year, month and first day. Then subtract one day to change the month
-            new_date = datetime(year, month, 1) - timedelta(days=1) #timedelta(days) changes the entire date if the correct conditions are met
+            month -= 1
+            if month == 0:
+                # If month becomes 0 set to previous year December
+                month = 12
+                year -= 1
         elif direction == 'next':
             # Increase month
-            # Create a new_date object with the current year, month and 28th day. Then add 4 days to change the month (takes Feburary into account)
-            new_date = datetime(year, month, 28) + timedelta(days=4)
-
-
+            month += 1
+            if month > 12:
+                # If month is greater than 12 set to next year January
+                month = 1
+                year += 1
+        
         #update the url for this route passing the new year and month
-        return redirect(url_for('update_month', year=new_date.year, month=new_date.month))
+        return redirect(url_for('update_month', year=year, month=month))
     
     # Get word Month from dictionary using value. Use "Invalid Month" if number value is invalid
     wordMonth = set_month.get(month,'Invalid Month')
@@ -74,35 +82,47 @@ def update_month(year, month):
 
     return render_template('calendar.html', year=year, month=month, wordMonth = wordMonth, calendar_data=calendar_data)
 
-<<<<<<< HEAD
-'''#Display current week
-@app.route('/week')
-def week():
-    #Get current year and month
-    thisMonth = datetime.now()
-    year = thisMonth.year
-    month = thisMonth.month
-
-    # Set Sunday as the first day of the week
-    calendar.setfirstweekday(calendar.SUNDAY)
-
-    #display Calendar
-    week = calendar.monthcalendar(year, month)[1]
-    #Create a Calendar list that holds a week list to iterate through each day of the week 
-    calendar_data = [day if day != 0 else " " for day in week]
-
-    return render_template('week.html', year=year, month=month, calendar_data=calendar_data)'''
 
 
-=======
->>>>>>> bd16d3d495d79a2f70424bcaa94863fb72d18dd6
 
-@app.route('/tasksAndEvents/<int:year>/<int:month>/<int:day>')
+@app.route('/tasksAndEvents/<int:year>/<int:month>/<int:day>', methods=['GET', 'POST'])
 def display_events(year, month, day):
     selectedDate = f"{year}-{month:02d}-{day:02d}"
 
-    dateEvents = [event for event in eventList if event[2] ==selectedDate]
+    #Adjust date 
+    if request.method == 'POST':
+        direction = request.form['direction']
 
+        if direction == 'prev':
+            # Decrease day
+            day -= 1
+            # If day becomes 0, set to last day of previous month
+            if day == 0:
+                month -= 1
+                 # If month becomes 0, set to previous year December
+                if month == 0:
+                    month = 12
+                    year -= 1
+                #set correct last day
+                day = 31 if month in {1,3,5,7,8,10,12} else 30 if month in {4,6,9,11} else 29 if year % 4 == 0 and (year % 100 != 0 or year % 400 ==0) else 28
+        elif direction == 'next':
+            # Increase day
+            day += 1
+            #Find last day of the month
+            last_day = 31 if month in {1,3,5,7,8,10,12} else 30 if month in {4,6,9,11} else 29 if year % 4 == 0 and (year % 100 != 0 or year % 400 ==0) else 28
+            if day > last_day:
+                # Move month forward and adjust day if it is larger than last day
+                day = 1
+                month += 1
+                if month > 12:
+                    # Move year forward and adjust month if it is larger than Decmber
+                    month = 1
+                    year += 1
+
+        #update the url for this route passing the new year and month
+        return redirect(url_for('display_events', year=year, month=month, day=day))
+
+    dateEvents = [event for event in eventList if event[2] ==selectedDate]
 
     # Get word Month from dictionary using value. Use "Invalid Month" if number value is invalid
     wordMonth = set_month.get(month,'Invalid Month')

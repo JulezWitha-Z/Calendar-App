@@ -3,28 +3,10 @@
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Calendar App</title>
-     <style>
-        body {
-            text-align: center; /* Center align the content */
-        }
-
-        form {
-            display: inline-block; /* Make the form inline */
-            margin-top: 20px; /* Add some top margin for spacing */
-        }
-
-        button {
-            margin: 0 10px; /* Add margin to the buttons for spacing */
-        }
-    </style>
 </head>
 <body>
     <div class="container">
-<<<<<<< HEAD
-        <h1 border="1">{{ wordMonth }} {{ year }}</h1>
-=======
         <h1>{{ wordMonth }} {{ year }}</h1>
->>>>>>> bd16d3d495d79a2f70424bcaa94863fb72d18dd6
         <table border="1">
             <thead>
                 <td>Sun</td>
@@ -51,8 +33,9 @@
         </table>
     </div>
 
+    <!-- Form to add event -->
     <form method="post" action="{{ url_for('add_event')}}">
-        <button type="submit" class = "button">Add Event or Task</button>
+        <button type="submit">Add Event or Task</button>
     </form>
 
     <!-- Form for changing the month -->
