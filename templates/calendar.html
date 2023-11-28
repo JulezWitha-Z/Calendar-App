@@ -43,5 +43,12 @@
         <button type="submit" name="direction" value="prev">Previous Month</button>
         <button type="submit" name="direction" value="next">Next Month</button>
     </form>
+
+    <!--Form for upcoming events-->
+    <!--Form for upcoming events-->
+    <form method="get" action="{{ url_for('upcoming_events') }}">
+        <button type="submit">Upcoming Events and Tasks</button>
+    </form>
+
 </body>
 </html>
