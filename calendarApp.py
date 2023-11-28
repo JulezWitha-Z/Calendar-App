@@ -47,7 +47,6 @@ def generate_Calendar():
 
 
 
-
 @app.route('/update_month/<int:year>/<int:month>', methods=['GET', 'POST'])
 def update_month(year, month):
     # Set Sunday as the first day of the week
