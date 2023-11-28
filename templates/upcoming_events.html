@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Upcoming Events</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Upcoming Events</h1>
+        <p>{{ start_of_week.strftime('%Y-%m-%d') }} to {{ end_of_week.strftime('%Y-%m-%d') }}</p>
+        <ul>
+            {% for event in upcoming_events %}
+                <li>
+                    <strong>{{ event[0] }}</strong>
+                    - {{ event[1] }} ({{ event[2] }} days left)
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Add a link to go back to the calendar -->
+    <form method="get" action="{{ url_for('generate_Calendar') }}">
+        <button type="submit">Back to Calendar</button>
+    </form>
+</body>
+</html>

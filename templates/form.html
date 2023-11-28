@@ -17,7 +17,10 @@
             <input type = "checkbox" name = "isTask">
         
             <button type ="submit" class = "button">Add</button>
-            <a href="{{ url_for('generate_Calendar') }}" class = "button">Back to Calendar</a>
+        </form>
+        <!-- Add a link to go back to the calendar -->
+        <form method="get" action="{{ url_for('generate_Calendar') }}">
+            <button type="submit">Back to Calendar</button>
         </form>
         
 
