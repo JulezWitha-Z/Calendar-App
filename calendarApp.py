@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 import calendar
-from datetime import datetime
+from datetime import datetime, timedelta, date
+
 
 app = Flask(__name__)
+
 
 #Create dictionary to set number to month
 set_month = {
@@ -143,6 +145,31 @@ def add_event():
 
     eventList.append((len(eventList) + 1, event_name, event_date, isTask, 0))
     return redirect(url_for('render_add_event'))
+
+@app.route('/upcoming_events')
+def upcoming_events():
+    # Calculate the start and end dates of the current week
+    today = date.today()
+    start_of_week = today - timedelta(days=today.weekday())
+    end_of_week = start_of_week + timedelta(days=6)
+
+    # Filter events and tasks within the current week
+    upcoming_events = []
+
+    for event in eventList:
+        event_id, event_name, event_date_string, isTask, completed = event
+
+        event_date = datetime.strptime(event_date_string, "%Y-%m-%d").date() if event_date_string else None
+
+        # Check if event_date is not None before making the comparison
+        if event_date and start_of_week <= event_date <= end_of_week:
+            # Calculate the number of days left for each event/task from today
+            days_left = (event_date - today).days
+            upcoming_events.append((event_name, event_date, days_left))
+
+    return render_template('upcoming_events.html', upcoming_events=upcoming_events, start_of_week=start_of_week, end_of_week=end_of_week)
+
+    
 
 #Add the option to run this file directly
 if __name__=='__main__':
